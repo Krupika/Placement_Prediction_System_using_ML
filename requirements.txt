@@ -1,7 +1,6 @@
 Flask
-Scikit-Learn
+scikit-learn==1.5.2
 Pandas
-Pickle
 Numpy
 matplotlib
 Seaborn

@@ -1,5 +1,3 @@
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
 import os
 import numpy as np
 from flask import Flask, request, render_template
@@ -8,24 +6,15 @@ import pickle
 app = Flask(__name__, template_folder="./templates")
 
 # paths to include the subfolder
-model_path = os.path.join(os.path.dirname(__file__), 'model.pkl')
-model1_path = os.path.join(os.path.dirname(__file__), 'model1.pkl')
+model_path = r"C:\Users\sa\OneDrive\Desktop\Feild project\Placement_Prediction_Using_Machine-Learning\model.pkl"
+model1_path = r"C:\Users\sa\OneDrive\Desktop\Feild project\Placement_Prediction_Using_Machine-Learning\model1.pkl"
 
 # Check if files exist and load models
 if os.path.exists(model_path) and os.path.exists(model1_path):
     model = pickle.load(open(model_path, 'rb'))
     model1 = pickle.load(open(model1_path, 'rb'))
-    
-    # Fix compatibility with newer scikit-learn versions
-    for estimator in model.estimators_:
-        if not hasattr(estimator, 'monotonic_cst'):
-            estimator.monotonic_cst = None
-    for estimator in model1.estimators_:
-        if not hasattr(estimator, 'monotonic_cst'):
-            estimator.monotonic_cst = None
 else:
     raise FileNotFoundError("model.pkl or model1.pkl not found. Please check the file path and location.")
-
 
 @app.route('/')
 def h():
@@ -53,35 +42,6 @@ def predict():
     te_percentage = request.args.get('te_percentage', '0')
     backlogs = request.args.get('backlogs', '0')
     name = request.args.get('name', 'Candidate')
-
-    # Basic input validation
-    try:
-        cgpa = float(cgpa)
-        projects = int(projects)
-        workshops = int(workshops)
-        mini_projects = int(mini_projects)
-        communication_skills = float(communication_skills)
-        internship = int(internship)
-        hackathon = int(hackathon)
-        tw_percentage = float(tw_percentage)
-        te_percentage = float(te_percentage)
-        backlogs = int(backlogs)
-        
-        # Validate ranges
-        if not (0 <= cgpa <= 10):
-            return render_template('output.html', output='Error: CGPA must be between 0 and 10', output2='')
-        if not (0 <= communication_skills <= 10):
-            return render_template('output.html', output='Error: Communication skills must be between 0 and 10', output2='')
-        if not (0 <= tw_percentage <= 100):
-            return render_template('output.html', output='Error: 12th percentage must be between 0 and 100', output2='')
-        if not (0 <= te_percentage <= 100):
-            return render_template('output.html', output='Error: 10th percentage must be between 0 and 100', output2='')
-        if projects < 0 or workshops < 0 or mini_projects < 0 or backlogs < 0:
-            return render_template('output.html', output='Error: Values cannot be negative', output2='')
-        if internship not in [0, 1] or hackathon not in [0, 1]:
-            return render_template('output.html', output='Error: Internship and Hackathon must be Yes (1) or No (0)', output2='')
-    except ValueError:
-        return render_template('output.html', output='Error: Invalid input values', output2='')
 
     # Count the number of skills by splitting with commas
     s = len(skills.split(',')) if skills else 1

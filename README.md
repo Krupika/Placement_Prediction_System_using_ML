@@ -39,7 +39,8 @@ The dataset contains features for predicting both placement status and salary.
 To run this project locally, follow these steps:
 
 1. Clone the repository:
-   git clone https://github.com/charans2702/Placement_Prediction_Using_Machine-Learning.git
+   git clone 
+   Placement_Prediction_Using_Machine-Learning.git
    
 2. Install the required packages:
    pip install -r requirements.txt
@@ -113,11 +114,3 @@ The models' performance is evaluated using various metrics, including:
 ## Flask App
 
 The trained models are deployed using a Flask web application. The app allows users to input student details and receive predictions for placement probability and expected salary.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request or open an Issue.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
