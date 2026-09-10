@@ -16,8 +16,7 @@ This project focuses on predicting student placement and salary in campus recrui
 - [Model Training](#model-training)
 - [Evaluation](#evaluation)
 - [Results](#results)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Overview
 
